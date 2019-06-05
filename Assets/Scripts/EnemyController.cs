@@ -40,10 +40,18 @@ public class EnemyController : MonoBehaviour
         var hereToPlayer = player.transform.position - transform.position;
         Debug.DrawRay(transform.position, hereToPlayer, Color.magenta);
 
-        if(Vector3.Distance(transform.position, player.transform.position) <= ViewDistance)
+        RaycastHit hit;
+
+        if(Physics.Raycast(transform.position, hereToPlayer, out hit, ViewDistance))
         {
-            if(Vector3.Angle(hereToPlayer, transform.forward) <= FieldOfView)
-                alarm();
+            if(hit.transform.gameObject.tag == "Player")
+            {
+                if(Vector3.Distance(transform.position, player.transform.position) <= ViewDistance)
+                {
+                    if(Vector3.Angle(hereToPlayer, transform.forward) <= FieldOfView)
+                        alarm();
+                }
+            }
         }
     }
 
