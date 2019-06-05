@@ -34,27 +34,17 @@ public class EnemyController : MonoBehaviour
 
     private void checkSpottedPlayerWithAngle()
     {
+        Debug.DrawRay(transform.position, transform.forward * ViewDistance, Color.red);
         var player = GameObject.FindGameObjectWithTag("Player");
-        //Debug.DrawRay(transform.position, player.transform.position - transform.position);
-        Debug.DrawRay(transform.position, player.transform.position);
 
-        //var player = GameObject.FindGameObjectWithTag("Player");
+        var hereToPlayer = player.transform.position - transform.position;
+        Debug.DrawRay(transform.position, hereToPlayer, Color.magenta);
 
-        //var hereToPlayer = player.transform.position - transform.position;
-        //var hereToForward = transform.forward - transform.position;
-
-        //var playerViewAngle = Vector3.Angle(transform.forward, hereToPlayer - transform.position);
-
-
-        //Debug.Log(name + ": " + playerViewAngle.ToString());
-
-        //if(playerViewAngle <= FieldOfView && Vector3.Distance(player.transform.position, transform.position) <= ViewDistance)
-        //{
-        //    alarm();
-        //}
-
-        //Debug.DrawRay(transform.position, hereToPlayer, Color.red);
-        //Debug.DrawRay(transform.position, transform.forward * ViewDistance, Color.blue);
+        if(Vector3.Distance(transform.position, player.transform.position) <= ViewDistance)
+        {
+            if(Vector3.Angle(hereToPlayer, transform.forward) <= FieldOfView)
+                alarm();
+        }
     }
 
 

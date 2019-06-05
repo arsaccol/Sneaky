@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ViewDistance: 10
-  AlertTime: 1
-  FieldOfView: 10
+  AlertTime: 2
+  FieldOfView: 30
 --- !u!1 &8713432081100168305
 GameObject:
   m_ObjectHideFlags: 0
