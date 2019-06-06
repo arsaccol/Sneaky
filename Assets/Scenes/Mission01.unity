@@ -111,7 +111,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 233a4e3517321444f9948cce27033d8a, type: 2}
 --- !u!1001 &20355098
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -284,6 +284,34 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8713432080854216087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &130322204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8713432080903369372, guid: 9db5aa233d43c4045803840200f98de6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8713432080854216087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!195 &130322205
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130322204}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &504183134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,7 +1264,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &1867533041
 MeshCollider:
