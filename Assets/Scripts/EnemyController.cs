@@ -7,6 +7,9 @@ public class EnemyController : MonoBehaviour
     public float ViewDistance = 1f;
     public float AlertTime = 10f;
     public float FieldOfView = 5f;
+    private bool Alarmed = false;
+
+    public Vector3 LastPlayerSighting = Vector3.positiveInfinity;
 
 
     private Animator sirenAnimator;
@@ -18,10 +21,13 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        //Debug.DrawRay(transform.position, transform.forward * ViewDistance, new Color(0xca / 255f, 0x2c / 255f, 0x92 / 255f));
-
-        //checkSpottedPlayerStraightForward();
         checkSpottedPlayerWithAngle();
+        var navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+
+        if(Alarmed)
+        {
+            navMeshAgent.SetDestination(LastPlayerSighting);
+        }
     }
 
     IEnumerator AlarmWait(float waitTime)
@@ -29,6 +35,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         sirenAnimator.SetBool("IsSeeingPlayer", false);
+        Alarmed = false;
     }
 
 
@@ -38,7 +45,7 @@ public class EnemyController : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
 
         var hereToPlayer = player.transform.position - transform.position;
-        Debug.DrawRay(transform.position, hereToPlayer, Color.magenta);
+        //Debug.DrawRay(transform.position, hereToPlayer, Color.magenta);
 
         RaycastHit hit;
 
@@ -49,15 +56,17 @@ public class EnemyController : MonoBehaviour
                 if(Vector3.Distance(transform.position, player.transform.position) <= ViewDistance)
                 {
                     if(Vector3.Angle(hereToPlayer, transform.forward) <= FieldOfView)
-                        alarm();
+                        alarm(player.transform.position);
                 }
             }
         }
     }
 
 
-    private void alarm()
+    private void alarm(Vector3 sightingPosition)
     {
+        LastPlayerSighting = sightingPosition;
+        Alarmed = true;
         if(sirenAnimator.GetBool("IsSeeingPlayer") == false)
         {
             sirenAnimator.SetBool("IsSeeingPlayer", true);
@@ -75,7 +84,7 @@ public class EnemyController : MonoBehaviour
         {
             if(hit.collider.tag == "Player")
             {
-                alarm();
+                alarm(hit.transform.position);
             }
         }
     }
