@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour
+public class ThirdPersonPlayerControls : MonoBehaviour
 {
     private Transform m_cameraTransform;
     public float m_CameraSensitity;
