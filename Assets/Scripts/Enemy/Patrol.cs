@@ -7,7 +7,7 @@ public class Patrol : MonoBehaviour
     // Start is called before the first frame update
     public Waypoint[] Waypoints;
     public bool Patrolling = true;
-    public int CurrentWaypointIndex = 0;
+    public int WaypointIndex = 0;
 
 
     private UnityEngine.AI.NavMeshAgent navMeshAgent;
@@ -15,25 +15,31 @@ public class Patrol : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        //navMeshAgent.autoBraking = false;
-
+        navMeshAgent.autoBraking = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.1f)
-        {
-            CurrentWaypointIndex = (CurrentWaypointIndex + 1) % Waypoints.Length;
-            navMeshAgent.SetDestination(Waypoints[CurrentWaypointIndex].transform.position);
-            StartCoroutine(WaitSeconds(Waypoints[CurrentWaypointIndex].WaitTime));
-        }
-        
+        //if(!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 1f)
+        //{
+        //    WaypointIndex = (WaypointIndex + 1) % Waypoints.Length;
+        //    navMeshAgent.SetDestination(Waypoints[WaypointIndex].transform.position);
+
+        //}
+        StartCoroutine(PatrolCoroutine());
     }
 
-    IEnumerator WaitSeconds(float seconds)
+    IEnumerator PatrolCoroutine()
     {
-        yield return new WaitForSeconds(seconds);
+        if(navMeshAgent.remainingDistance < 1f)
+        {
+            yield return new WaitForSeconds(Waypoints[WaypointIndex].WaitTime);
+            WaypointIndex = (WaypointIndex + 1) % Waypoints.Length;
+            navMeshAgent.SetDestination(Waypoints[WaypointIndex].transform.position);
+        }
+
+
     }
+
 
 }
