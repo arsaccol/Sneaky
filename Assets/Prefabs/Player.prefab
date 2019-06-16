@@ -138,10 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a0fa8534e044ff4d936b75454bbcdc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CameraTransform: {fileID: 4510074296830329162}
-  m_CameraFOV: 60
-  m_CameraSensitivity: 5
-  m_MovementSpeed: 8
+  CameraTransform: {fileID: 0}
+  CameraFOV: 45
+  CameraSensitivity: 10
+  MovementSpeed: 4
 --- !u!143 &913720483
 CharacterController:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4510074296830329163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 2, z: -2.5}
+  m_LocalPosition: {x: -0.6, y: 2, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4510074296005560834}
