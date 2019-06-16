@@ -28,8 +28,8 @@ public class Player : MonoBehaviour
 
     private void LateUpdate()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Camera Motion X");
+        float mouseY = Input.GetAxis("Camera Motion Y");
 
         moveCamera(mouseX, -mouseY);
 
