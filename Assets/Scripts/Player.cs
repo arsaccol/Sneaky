@@ -20,17 +20,42 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
+        float motionAxisHorizontal = Input.GetAxis("Horizontal");
+        float motionAxisVertical = Input.GetAxis("Vertical");
+
+        movePlayer(motionAxisHorizontal, motionAxisVertical);
     }
 
     private void LateUpdate()
     {
-        float x = Input.GetAxis("Mouse X");
-        float y = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
 
-        moveCamera(x, -y);
+        moveCamera(mouseX, -mouseY);
 
     }
+
+    private void movePlayer(float horizontalInputAxis, float verticalInputAxis)
+    {
+        movePlayerForwardMotion(verticalInputAxis);
+        movePlayerStrafeMotion(horizontalInputAxis);
+    }
+
+
+    private void movePlayerForwardMotion(float verticalInputAxis)
+    {
+        var cameraProjectedForwardDirection = Vector3.ProjectOnPlane(m_CameraTransform.forward, Vector3.up).normalized;
+        transform.position += cameraProjectedForwardDirection * verticalInputAxis;
+    }
+
+
+    private void movePlayerStrafeMotion(float horizontalInputAxis)
+    {
+        var cameraProjectedRightDirection = Vector3.ProjectOnPlane(m_CameraTransform.right, Vector3.up).normalized;
+        transform.position += cameraProjectedRightDirection * horizontalInputAxis;
+    }
+
+
 
     private void moveCamera(float x, float y)
     {
