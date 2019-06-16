@@ -4,26 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Transform m_CameraTransform;
-    public float m_CameraFOV = 45f;
-    public float m_CameraSensitivity = 10f;
+    public Transform CameraTransform;
+    public float CameraFOV = 45f;
+    public float CameraSensitivity = 10f;
+    public float MovementSpeed = 4f;
+    private CharacterController characterController;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        m_CameraTransform = GameObject.Find("PlayerCamera").transform;
-        
-
+        CameraTransform = GameObject.Find("PlayerCamera").transform;
+        characterController = GetComponent<CharacterController>();
         
     }
 
-    // Update is called once per frame
+
     private void Update()
     {
-        float motionAxisHorizontal = Input.GetAxis("Horizontal");
-        float motionAxisVertical = Input.GetAxis("Vertical");
-
-        movePlayer(motionAxisHorizontal, motionAxisVertical);
+        movePlayer();
     }
 
     private void LateUpdate()
@@ -35,8 +33,14 @@ public class Player : MonoBehaviour
 
     }
 
-    private void movePlayer(float horizontalInputAxis, float verticalInputAxis)
+
+    private void movePlayer()
     {
+        float horizontalInputAxis = Input.GetAxis("Horizontal");
+        float verticalInputAxis = Input.GetAxis("Vertical");
+
+
+
         movePlayerForwardMotion(verticalInputAxis);
         movePlayerStrafeMotion(horizontalInputAxis);
     }
@@ -44,24 +48,21 @@ public class Player : MonoBehaviour
 
     private void movePlayerForwardMotion(float verticalInputAxis)
     {
-        var cameraProjectedForwardDirection = Vector3.ProjectOnPlane(m_CameraTransform.forward, Vector3.up).normalized;
-        transform.position += cameraProjectedForwardDirection * verticalInputAxis;
+        var cameraProjectedForwardDirection = Vector3.ProjectOnPlane(CameraTransform.forward, Vector3.up).normalized;
+        characterController.SimpleMove(cameraProjectedForwardDirection * verticalInputAxis * MovementSpeed);
     }
 
 
     private void movePlayerStrafeMotion(float horizontalInputAxis)
     {
-        var cameraProjectedRightDirection = Vector3.ProjectOnPlane(m_CameraTransform.right, Vector3.up).normalized;
-        transform.position += cameraProjectedRightDirection * horizontalInputAxis;
+        var cameraProjectedRightDirection = Vector3.ProjectOnPlane(CameraTransform.right, Vector3.up).normalized;
+        characterController.SimpleMove(cameraProjectedRightDirection * horizontalInputAxis * MovementSpeed);
     }
-
 
 
     private void moveCamera(float x, float y)
     {
-        //m_CameraTransform.RotateAround(this.transform.position, Vector3.down, x * m_CameraSensitivity);
-        transform.RotateAround(this.transform.position, Vector3.up, x * m_CameraSensitivity);
-        m_CameraTransform.RotateAround(transform.position, transform.right, y * m_CameraSensitivity);
-
+        transform.RotateAround(this.transform.position, Vector3.up, x * CameraSensitivity);
+        CameraTransform.RotateAround(transform.position, transform.right, y * CameraSensitivity);
     }
 }
